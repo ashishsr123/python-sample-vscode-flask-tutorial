@@ -40,6 +40,10 @@ steps:
 - script: |
     pip3 install pytest pytest-azurepipelines
     pytest
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: '**/test-*.xml'
+      testRunTitle: 'Publish test results for Python $(python.version)'
   displayName: 'pytest'
 
 - task: PublishTestResults@2
